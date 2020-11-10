@@ -12,7 +12,7 @@ published: true
 
 I am a cyber security analyst who has a deep passion for offensive security, aka Red Teaming.  
 
-I have made this blog to share my knowledge and skills learned during my time as a cyber security professional with the aim of improving both myself and hopefully others who have a passion for either defensive or offensive security aspirations. This blog will cover:
+I have made this blog to share my knowledge and skills learned during my time as a cyber security professional with the aim of improving both myself and hopefully others who have offensive or defensive security aspirations. This blog will cover:
 
 * Certifications gained
 * CTF / Box Write ups
@@ -25,4 +25,3 @@ This blog will develve into multiple subjects including my personal acolades and
 ![dance](/images/always_sunny_dance.gif)
 
 ### Happy Hacking!!!
-
