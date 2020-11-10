@@ -21,7 +21,7 @@ I have made this blog to share my knowledge and skills learning during my time a
 I hope this blog helps to share knowledge, skills and techniques to others with a keen interest in the cyber security field alongside showcase my personal achievements which 
 
 ![dance](/images/always_sunny_dance.gif)
-<p> Hello </p>
+<p style="text-align: center;">Hello</p>
 
 
 ### Happy Hacking!!!
