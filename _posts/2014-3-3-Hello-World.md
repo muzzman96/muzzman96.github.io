@@ -1,8 +1,25 @@
 ---
 layout: post
 title: First Blog Post
-published: true
+published: false
 ---
-## This is my first blog with Jekyll
+## My First Post: Cyber Security Journey 
 
-### Congratulations!
+----
+****
+
+### Hello world!
+
+I am a cyber security enthusiaist  
+
+* Certifications gained
+* CTFs / Boxes captured
+* Future Aspirations
+* ...And a _few more things_
+
+
+
+![yay](/images/always_sunny_dance.gif) {: .memes}
+
+
+Happy Hacking!!!
