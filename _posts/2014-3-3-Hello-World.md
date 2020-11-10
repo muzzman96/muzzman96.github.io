@@ -1,7 +1,7 @@
 ---
 layout: post
 title: First Blog Post
-published: false
+published: true
 ---
 ## My First Post: Cyber Security Journey 
 
