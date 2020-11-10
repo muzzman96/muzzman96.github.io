@@ -20,7 +20,7 @@ I have made this blog to share my knowledge and skills learned during my time as
 * Future Aspirations
 * ...And a _few more things_
 
-This blog will develve into multiple subjects including my personal acolades and sharing any information I found interesting or would help benefit the larger infosec community as a whole.
+This blog will develve into multiple subjects including my personal accolades and sharing any information I found interesting or would help benefit the larger infosec community as a whole.
 
 ![dance](/images/always_sunny_dance.gif)
 
