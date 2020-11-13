@@ -1,5 +1,7 @@
 ---
-published: false
+layout: post
+title: 2. PenTest+ Plus Certified
+published: true
 ---
 ## I PASSED CompTia's PenTest+ EXAM!!!
 
