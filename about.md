@@ -13,5 +13,6 @@ A place to include any other types of information that you'd like to include abo
 
 ### Contact me
 
-[Twitter](muzzman96@twitter.com)
+[Twitter](https://twitter.com/muzzman96)
+
 [email@domain.com](mailto:email@domain.com)
