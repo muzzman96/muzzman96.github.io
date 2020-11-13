@@ -15,4 +15,4 @@ A place to include any other types of information that you'd like to include abo
 
 [Twitter](https://twitter.com/muzzman96)
 
-[email@domain.com](mailto:email@domain.com)
+[muzzman96@outlook.com](mailto:muzzman96@outlook.com)
