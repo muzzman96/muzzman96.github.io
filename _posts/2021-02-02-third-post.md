@@ -134,7 +134,7 @@ ___
 
 ### 4. Getting our 1st shell (Foothold)
 
-As we can't use FTP we will have to be creative. As this is IIS, it is likely running **.ASP** or **.ASPX** as it's web framework, **NOT PHP**. 
+As we can't use metasploit we will have to be creative. As this is IIS, it is likely running **.ASP** or **.ASPX** as it's web framework, **NOT PHP**. 
 
 I will go for .ASPX.
 
