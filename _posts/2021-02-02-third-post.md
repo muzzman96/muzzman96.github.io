@@ -1,4 +1,5 @@
 ---
+title: OSCP Prep - HTB Series - No. 1
 published: true
 ---
 ## Devel Writeup (without metasploit)
