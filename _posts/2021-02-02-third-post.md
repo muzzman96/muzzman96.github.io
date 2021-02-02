@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 ## #1. OSCP Prep - HTB Series :: Devel Writeup (without metasploit)
 
@@ -247,5 +247,3 @@ And that was my guide how to get SYSTEM on Devel without Metasploit.
 Thanks for reading and I will hopefully be adding to this series in the near future!
 
 ___
-
-
