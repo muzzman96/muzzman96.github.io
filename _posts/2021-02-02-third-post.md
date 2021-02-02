@@ -1,6 +1,4 @@
 ---
-layout: post
-title: #1. OSCP Prep - HTB Series
 published: true
 ---
 ## Devel Writeup (without metasploit)
