@@ -23,7 +23,7 @@ Quick nmap scan on all ports to find the services that the machine has open:
 	21 tcp open  ftp
 	80 tcp open  http
 
-We can see that the box is listening on FTP (21) and HTTP (80).
+We can see that the box is listening on **FTP (21)** and **HTTP (80)**.
 
 Next aggressive scan to perform some service enumeration and default scripts against returned listening ports:
 
@@ -43,6 +43,46 @@ Next aggressive scan to perform some service enumeration and default scripts aga
     |_http-server-header: Microsoft-IIS 7.5
     |_http-title: IIS7
 	
+
+Few items to note here:
+
+**1.HTTP:**
+- Running **IIS version 7.5**, this has been information has been pulled from server headers
+- Allows the use of the **HTTP TRACE** verb; not useful to us in this scenario but worth noting if this was a pen test
+- **HTTP-TITLE is IIS7** (potentially a **default test page**)
+
+**1.FTP**
+- **Anonymous login acess allowed**
+- A listing of the directory when accessed anonymously
+
+I like to normally go for HTTP first so let's do that
+
+
+### 3. Further enumeration - HTTP
+
+Accessing the web page we notice that this is indeed a default test page when configuring IIS:
+
+![default_test_page]({{site.baseurl}}/_posts/2021-02-02 15_57_40-Window.png)
+
+If we look at the sourcecode we can see the welcome.png file is hosted locally on the server:
+
+![2021-02-02 16_03_57-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_03_57-Window.png)
+
+
+### 4. Further enumeration - FTP
+
+As shown earlier FTP allows anonymous access: that is where **username=anaonymous** and **password=anything**. The following demonstrates how to do this:
+
+	ftp $IP
+    
+    Connected to 10.129.90.59.
+	220 Microsoft FTP Service
+    Name (10.129.90.59:muzz): anonymous
+    331 Anonymous access allowed, send identity (e-mail name) as password.
+    Password:
+    230 User logged in.
+    Remote system type is Windows_NT.
+    ftp>
 
 
 
