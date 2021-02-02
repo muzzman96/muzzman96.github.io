@@ -1,7 +1,8 @@
 ---
+title: #1. OSCP Prep - HTB Series
 published: true
 ---
-## #1. OSCP Prep - HTB Series :: Devel Writeup (without metasploit)
+## Devel Writeup (without metasploit)
 
 Hi, this is my write up for the easy box **Devel** on Hackthebox. This is a retired windows machine and can be easily exploited in a matter of minutes is Metasploit. However, as this is for OSCP preparation, no metasploit will be used.
 
