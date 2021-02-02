@@ -5,7 +5,7 @@ published: true
 
 Hi, this is my write up for the easy box **Devel** on Hackthebox. This is a retired windows machine and can be easily exploited in a matter of minutes is Metasploit. However, as this is for OSCP preparation, no metasploit will be used.
 
-![devel_graphi](/images/posts/devel_graphic.PNG)
+![devel_graphi](/images/devel_graphic.PNG)
 
 If you enjoyed this write up feel free to follow me on twitter. Let's get started!! :)
 
