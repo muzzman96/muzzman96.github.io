@@ -55,9 +55,9 @@ Few items to note here:
 - **Anonymous login acess allowed**
 - A listing of the directory when accessed anonymously
 
-I like to normally go for HTTP first so let's do that
+I like to normally go for HTTP first so let's do that :)
 
-__
+___
 
 ### 2. Further enumeration - HTTP
 
@@ -71,7 +71,7 @@ If we look at the sourcecode we can see the welcome.png file is hosted locally o
 
 We can run other tools like dirbuster etc but this information has lead to me to believe FTP is the path we should pursue...
 
-__
+___
 
 ### 3. Further enumeration - FTP
 
@@ -129,20 +129,22 @@ The file has been successfully uploaded. Let's try and access this via the brows
 
 So we now know we can access any resource we upload via FTP from the browser. This means if we were to set upload a reverse shell via FTP access it via FTP, we can setup a call back and get a shell. Let's try this.
 
-__
+___
 
 ### 4. Getting our 1st shell (Foothold)
 
-As we can't use FTP we will have to be creative. As this is IIS, it is likely running **.ASP** or **.ASPX** as it's web framework, **NOT PHP**. I will go for .ASPX.
+As we can't use FTP we will have to be creative. As this is IIS, it is likely running **.ASP** or **.ASPX** as it's web framework, **NOT PHP**. 
 
-Kali linux has inbuilt web shells for .ASPX which can be located at /usr/share/webshells/aspx/. Copy the cmdasp.apsx web shell from here to our local dir:
+I will go for .ASPX.
+
+Kali linux has inbuilt web shells for .ASPX which can be located at **/usr/share/webshells/aspx/**. Copy the **cmdasp.apsx** web shell from here to our local dir:
 
 	ls /usr/share/webshells/aspx/
 	cmdasp.aspx
     
     cp /usr/share/webshells/aspx/cmdasp.aspx .
 
-No changes to be made to file. Upload this file via FTP and then access the resource through the browser:
+There are **NO** changes to be made to file. Upload this file via FTP and then access the resource through the browser:
 
 ![2021-02-02 16_31_45-Window.png]({{site.baseurl}}/_posts/2021-02-02 16_31_45-Window.png)
 
@@ -151,7 +153,7 @@ This is will allow us to run **windows commands** via a HTML page as can be seen
 
 So how do we get a shell from here?
 
-We can upload netcat (nc.exe), set up our listener and get a callback. This can be done as follows:
+We can upload netcat **(nc.exe)**, set up our listener and get a callback. This can be done as follows:
 
 1. copy nc.exe to local dir:
 	- cp /usr/share/windows-resources/binaries/nc.exe:
@@ -174,13 +176,13 @@ After doing this we should get a call back on our listener and gained our footho
 
 ![2021-02-02 17_11_33-Window.png]({{site.baseurl}}/_posts/2021-02-02 17_11_33-Window.png)
 
-However we are not SYSTEM, to do this we must escalate our privileges through the means of an exploit
+However we are not SYSTEM, to do this we must escalate our privileges through the means of a **local exploit**
 
-__
+___
 
 ### 5. Getting SYSTEM
 
-If we run systeminfo we can fingerprint the OS version and try and find available exploits
+If we run **systeminfo** we can fingerprint the OS version and try and find available exploits online or in exploit-db:
 
 	c:\windows\system32\inetsrv>systeminfo
     
@@ -195,9 +197,9 @@ If we run systeminfo we can fingerprint the OS version and try and find availabl
 
     c:\windows\system32\inetsrv>
 
-What immediately stands out is the **OS name** and **version** - **Windows 7 6.1.7600**. Furthermore, running a **x64 ** processor
+What immediately stands out is the **OS name** and **version** - **Windows 7 6.1.7600**. Furthermore, running a **x64** processor
 
-If we google for "Windows 7 6.1.7600" we find out there's a local privsec exploit - **MS11-046**
+If we google for **"Windows 7 6.1.7600"** we find out there's a local privsec exploit - **MS11-046**
 
 This is on exploit-db so we can find it on our local kali machine using:
 	
@@ -212,6 +214,7 @@ It's listed as x86 so let's inspect the code to see if it will run on x64 too...
 - searchsploit -m windows_x86/local/40564.c
 
 Some things to note:
+
 - In the file in line 24 it listed Windows 7 x64 as vulnerable 
 - Exploit has been tested on  Windows 7 build 6.1.7600
 
@@ -243,6 +246,6 @@ And that was my guide how to get SYSTEM on Devel without Metasploit.
 
 Thanks for reading and I will hopefully be adding to this series in the near future!
 
-__
+___
 
 
